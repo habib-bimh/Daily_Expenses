@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'widgets/expenses.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart'; this package for devics orientation
 var kcolorScheme= ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 96, 59, 181));
 var KdarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
   seedColor: Color.fromARGB(255, 5, 99, 125));
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-    ]
-  ).then((value) {
+  // all code for devics orientation rotayed not **
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [
+  //     DeviceOrientation.portraitUp,
+  //   ]
+  // ).then((value) {
+  // runApp(const MyApp());
+  // });
   runApp(const MyApp());
-  });
   
 }
 

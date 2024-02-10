@@ -57,6 +57,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+   final width = MediaQuery.of(context).size.width;
      Widget maincontent = Center(child: Text("No expenses found. Start adding some!"),);
     if(_registeredExpence.isNotEmpty){
       maincontent= ExpenseList(expense:_registeredExpence,onRemoveExpense: _removeExpense,);
@@ -70,7 +71,7 @@ class _ExpensesState extends State<Expenses> {
         }, icon:Icon(Icons.add))
       ]),
       body: Center(
-          child: Column(
+          child:width <600? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -78,7 +79,10 @@ class _ExpensesState extends State<Expenses> {
           child:maincontent )
          
         ],
-      )),
+      ): Row(children: [
+         Expanded(
+          child:maincontent )
+      ],)),
     );
   }
 }
