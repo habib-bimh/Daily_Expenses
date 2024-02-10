@@ -3,6 +3,8 @@ import 'package:udam_course_modul_5/model/expense.dart';
 //import 'package:udam_course_modul_5/model/expense.dart';
 
 class NewExpense extends StatefulWidget {
+  const NewExpense({super.key, required this.onAddExpense});
+  final void Function(Expense expense) onAddExpense;
   @override
   State<StatefulWidget> createState() => _NewExpenseState();
 }
@@ -49,6 +51,14 @@ class _NewExpenseState extends State<NewExpense> {
           });
       return;
     }
+    widget.onAddExpense(Expense(
+        titel: _titellController.text,
+        amount: enturendAmount,
+        date: _selectedDate!,
+        category: _slectedCategory),
+        
+        );
+        Navigator.pop(context);
   }
 
   @override
@@ -63,7 +73,7 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.fromLTRB(16,48,16,16),
       child: Column(
         children: [
           TextField(

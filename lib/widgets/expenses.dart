@@ -26,12 +26,41 @@ class _ExpensesState extends State<Expenses> {
   ];
    
    void _addEepensesOverly(){
-     showModalBottomSheet(context: context, builder: (context){
-      return NewExpense();
+     showModalBottomSheet(
+      isScrollControlled: true,
+      context: context, builder: (context){
+      return NewExpense(onAddExpense: _addExpense,);
      });
    }
+
+  void _addExpense(Expense expense){
+    setState(() {
+      _registeredExpence.add(expense);
+    });
+   }
+   void _removeExpense(Expense expense){
+    final expensIndex = _registeredExpence.indexOf(expense);
+     setState(() {
+       _registeredExpence.remove(expense);
+     });
+     ScaffoldMessenger.of(context).clearSnackBars();
+     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 3),
+      content: Text("Expense delet"),
+      action: SnackBarAction(label: 'Undo', onPressed:(){
+       setState(() {
+         _registeredExpence.insert(expensIndex, expense);
+       });
+      }),
+      ));
+   }
+
   @override
   Widget build(BuildContext context) {
+     Widget maincontent = Center(child: Text("No expenses found. Start adding some!"),);
+    if(_registeredExpence.isNotEmpty){
+      maincontent= ExpenseList(expense:_registeredExpence,onRemoveExpense: _removeExpense,);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Expense Tracker"),
@@ -45,7 +74,9 @@ class _ExpensesState extends State<Expenses> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         Expanded(child: ExpenseList(expense:_registeredExpence))
+         Expanded(
+          child:maincontent )
+         
         ],
       )),
     );
